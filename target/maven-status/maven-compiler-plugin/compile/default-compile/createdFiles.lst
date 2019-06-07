@@ -1,0 +1,14 @@
+com\hotelreservation\microservices\config\SwaggerConfig.class
+com\hotelreservation\microservices\vo\RoomVO.class
+com\hotelreservation\microservices\converter\RoomServiceConverterImpl.class
+com\hotelreservation\microservices\repository\RoomRepository.class
+com\hotelreservation\microservices\service\impl\RoomServiceImpl.class
+com\hotelreservation\microservices\constants\DemoAppConstants.class
+com\hotelreservation\microservices\exceptions\RoomAlreadyExistsException.class
+com\hotelreservation\microservices\controller\RoomController.class
+com\hotelreservation\microservices\service\IRoomService.class
+com\hotelreservation\microservices\converter\IRoomServiceConverter.class
+com\hotelreservation\microservices\entity\Guest.class
+com\hotelreservation\microservices\exceptions\RoomNotFoundException.class
+com\hotelreservation\microservices\demoapp\HotelRoomCloudNativeWebserviceApplication.class
+com\hotelreservation\microservices\entity\Room.class
