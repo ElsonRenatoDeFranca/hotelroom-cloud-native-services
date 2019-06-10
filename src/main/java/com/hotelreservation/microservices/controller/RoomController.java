@@ -44,7 +44,6 @@ public class RoomController {
             return new ResponseEntity<> (HttpStatus.BAD_REQUEST);
         }
 
-
     }
 
 }

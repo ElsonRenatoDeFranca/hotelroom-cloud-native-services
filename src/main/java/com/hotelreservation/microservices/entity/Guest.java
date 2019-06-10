@@ -1,14 +1,21 @@
 package com.hotelreservation.microservices.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 /**
  * Created by e068635 on 6/7/2019.
@@ -19,6 +26,7 @@ import javax.persistence.Table;
 @Table(name="GUEST")
 @Getter
 @Setter
+@EqualsAndHashCode
 public class Guest {
 
     @Id
@@ -46,5 +54,18 @@ public class Guest {
 
     @Column(name="PHONE_NUMBER", length = 24)
     private String phoneNumber;
+
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
+
+    @JoinTable(name = "RESERVATION",
+            joinColumns = { @JoinColumn(name = "GUEST_ID") },
+            inverseJoinColumns = { @JoinColumn(name = "ROOM_ID") })
+    private List<Room> rooms;
+
+
 
 }
