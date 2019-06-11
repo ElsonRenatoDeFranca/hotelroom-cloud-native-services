@@ -1,5 +1,6 @@
 package com.hotelreservation.microservices.entity;
 
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,8 +32,13 @@ public class Guest {
 
     @Id
     @Column(name="GUEST_ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     private Long id;
+
+    @Column(name="GUEST_CODE", length = 20)
+    private String guestCode;
 
     @Column(name="FIRST_NAME", length = 64)
     private String firstName;
@@ -61,7 +67,7 @@ public class Guest {
                     CascadeType.MERGE
             })
 
-    @JoinTable(name = "RESERVATION",
+    @JoinTable(name = "BOOKING",
             joinColumns = { @JoinColumn(name = "GUEST_ID") },
             inverseJoinColumns = { @JoinColumn(name = "ROOM_ID") })
     private List<Room> rooms;

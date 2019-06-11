@@ -1,7 +1,6 @@
 package com.hotelreservation.microservices.repository;
 
 import com.hotelreservation.microservices.entity.Guest;
-import com.hotelreservation.microservices.entity.Room;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -9,5 +8,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface GuestRepository extends JpaRepository<Guest, Long> {
 
-    Room findBylastName(String lastName);
+    /**
+     *
+     * @param lastName
+     * @return
+     */
+    Guest findBylastName(String lastName);
+
+    /**
+     *
+     * @param guestCode
+     * @return
+     */
+    Guest findByguestCode(String guestCode);
 }

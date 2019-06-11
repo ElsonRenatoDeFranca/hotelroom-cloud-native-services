@@ -31,13 +31,13 @@ public interface IGuestService {
 
     /**
      *
-     * @param guestId
+     * @param guestCode
      * @param room
      * @return
      * @throws RoomFullException
      * @throws RoomNotFoundException
      */
-    Guest checkIn(String guestId, Room room) throws RoomFullException, RoomNotFoundException;
+    Guest checkIn(String guestCode, Room room) throws RoomFullException, RoomNotFoundException;
 
 
     /**

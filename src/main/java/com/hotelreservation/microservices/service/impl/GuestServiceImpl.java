@@ -38,7 +38,7 @@ public class GuestServiceImpl implements IGuestService {
     @Override
     public Guest registerNewGuest(Guest newGuest) throws GuestAlreadyRegisteredException {
 
-        Guest existingGuest = guestRepository.getOne(newGuest.getId());
+        Guest existingGuest = guestRepository.findBylastName(newGuest.getLastName());
 
         if(!newGuest.equals(existingGuest)){
             guestRepository.save(newGuest);
@@ -50,28 +50,15 @@ public class GuestServiceImpl implements IGuestService {
 
 
     @Override
-    public Guest checkIn(String guestId, Room room) throws RoomFullException, RoomNotFoundException {
+    public Guest checkIn(String guestCode, Room room) throws RoomFullException, RoomNotFoundException {
 
-        /*Room availableRoom = roomService.findByRoomNumber(room.getRoomNumber());
+        Guest checkedInGuest = guestRepository.findByguestCode(guestCode);
+        checkedInGuest.getRooms().add(room);
+        guestRepository.save(checkedInGuest);
 
-
-        Guest guest = roomRepository.findById(Long.parseLong(guestId)).orElse(registerNewGuest(Long.parseLong(guestId)));
-
-        if(guest != null){
-
-        }
-        */
-
-        return null;
+        return checkedInGuest;
     }
 
-    private Guest registerNewGuest(Long guestId){
-
-        Guest guest = new Guest();
-        guest.setId(guestId);
-
-        return guest;
-    }
     @Override
     public Guest checkOut(String guestId, Room room) throws RoomFullException, RoomNotFoundException {
         return null;

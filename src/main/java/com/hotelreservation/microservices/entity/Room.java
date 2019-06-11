@@ -1,6 +1,7 @@
 package com.hotelreservation.microservices.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,7 +31,9 @@ public class Room {
 
     @Id
     @Column(name="ROOM_ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @Column(name = "NAME", length = 16)
