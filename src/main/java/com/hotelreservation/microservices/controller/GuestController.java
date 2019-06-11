@@ -7,6 +7,7 @@ import com.hotelreservation.microservices.exceptions.RoomFullException;
 import com.hotelreservation.microservices.exceptions.RoomNotFoundException;
 import com.hotelreservation.microservices.service.IGuestService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,6 +30,7 @@ public class GuestController {
     private IGuestService guestService;
 
     @RequestMapping(method=RequestMethod.POST, value="/guests")
+    @ApiOperation(value="Register a new guest", notes="Register a new guest in the Hotel", nickname="saveGuest")
     public ResponseEntity<Guest> registerNewGuest(@RequestBody Guest guest) {
         Guest registeredGuest = null;
         try {
@@ -40,6 +42,7 @@ public class GuestController {
     }
 
     @RequestMapping(method=RequestMethod.POST, value="/guests/{guestCode}/rooms",produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value="Guest check in", notes="Check a new guest in the Hotel", nickname="saveGuest")
     public ResponseEntity<Guest> checkin(@PathVariable(name="guestCode") String guestCode, @RequestBody Room room){
 
         Guest registeredGuest = null;

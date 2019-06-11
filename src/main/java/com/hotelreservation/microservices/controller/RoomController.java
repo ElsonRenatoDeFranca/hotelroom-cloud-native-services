@@ -33,6 +33,7 @@ public class RoomController {
 
 
     @RequestMapping(method=RequestMethod.GET,value="/api/rooms/{roomNumber}")
+    @ApiOperation(value="Get room by number", notes="Gets an specific number", nickname="getSpecificRoomNumber")
     public ResponseEntity<Room> retrieveRoomByNumber(@PathVariable String roomNumber)throws RoomNotFoundException{
 
         try {
