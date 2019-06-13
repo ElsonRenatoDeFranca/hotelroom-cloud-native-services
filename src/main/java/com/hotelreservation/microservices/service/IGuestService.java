@@ -6,6 +6,11 @@ import com.hotelreservation.microservices.exceptions.GuestAlreadyRegisteredExcep
 import com.hotelreservation.microservices.exceptions.GuestNotFoundException;
 import com.hotelreservation.microservices.exceptions.RoomFullException;
 import com.hotelreservation.microservices.exceptions.RoomNotFoundException;
+import com.hotelreservation.microservices.vo.GuestVO;
+import com.hotelreservation.microservices.vo.RoomVO;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by e068635 on 6/10/2019.
@@ -17,7 +22,14 @@ public interface IGuestService {
      * @param id
      * @return
      */
-    Guest retrieveGuestById(Long id)  throws GuestNotFoundException;
+    GuestVO findGuestById(Long id)  throws GuestNotFoundException;
+
+    /**
+     *
+     * @param lastName
+     * @return
+     */
+    GuestVO findGuestByLastName(String lastName)  throws GuestNotFoundException;
 
 
     /**
@@ -26,28 +38,21 @@ public interface IGuestService {
      * @return
      * @throws GuestAlreadyRegisteredException
      */
-    Guest registerNewGuest(Guest newGuest) throws GuestAlreadyRegisteredException;
-
+    GuestVO registerNewGuest(Guest newGuest) throws GuestAlreadyRegisteredException;
 
     /**
      *
      * @param guestCode
-     * @param room
      * @return
-     * @throws RoomFullException
-     * @throws RoomNotFoundException
+     * @throws GuestNotFoundException
      */
-    Guest checkIn(String guestCode, Room room) throws RoomFullException, RoomNotFoundException;
-
+    void deleteGuest(String guestCode) throws GuestNotFoundException;
 
     /**
      *
-     * @param guestId
-     * @param room
      * @return
-     * @throws RoomFullException
-     * @throws RoomNotFoundException
      */
-    Guest checkOut(String guestId, Room room) throws RoomFullException, RoomNotFoundException;
+    List<GuestVO> findAll();
+
 
 }

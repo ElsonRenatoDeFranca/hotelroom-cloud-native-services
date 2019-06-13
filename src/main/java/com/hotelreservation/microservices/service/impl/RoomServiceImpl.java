@@ -27,7 +27,8 @@ public class RoomServiceImpl implements IRoomService {
     @Override
     public List<RoomVO> findAll() {
         return roomRepository.findAll().stream().
-                map(roomServiceConverter::convertEntityToVO).collect(Collectors.toList());
+               map(roomServiceConverter::convertEntityToVO).collect(Collectors.toList());
+
     }
 
     @Override

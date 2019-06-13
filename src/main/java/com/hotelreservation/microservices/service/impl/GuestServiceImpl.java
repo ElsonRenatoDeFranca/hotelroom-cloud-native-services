@@ -1,20 +1,19 @@
 package com.hotelreservation.microservices.service.impl;
 
 import com.hotelreservation.microservices.constants.DemoAppConstants;
+import com.hotelreservation.microservices.converter.IGuestServiceConverter;
 import com.hotelreservation.microservices.entity.Guest;
-import com.hotelreservation.microservices.entity.Room;
 import com.hotelreservation.microservices.exceptions.GuestAlreadyRegisteredException;
 import com.hotelreservation.microservices.exceptions.GuestNotFoundException;
-import com.hotelreservation.microservices.exceptions.RoomFullException;
-import com.hotelreservation.microservices.exceptions.RoomNotFoundException;
 import com.hotelreservation.microservices.repository.GuestRepository;
-import com.hotelreservation.microservices.repository.RoomRepository;
 import com.hotelreservation.microservices.service.IGuestService;
-import com.hotelreservation.microservices.service.IRoomService;
+import com.hotelreservation.microservices.vo.GuestVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by e068635 on 6/10/2019.
@@ -22,45 +21,52 @@ import java.util.Optional;
 @Service
 public class GuestServiceImpl implements IGuestService {
 
-
-    @Autowired
-    private IRoomService roomService;
-
     @Autowired
     private GuestRepository guestRepository;
 
+    @Autowired
+    private IGuestServiceConverter guestServiceConverter;
+
 
     @Override
-    public Guest retrieveGuestById(Long id) throws GuestNotFoundException {
-        return guestRepository.getOne(id);
+    public GuestVO findGuestById(Long id) throws GuestNotFoundException {
+        return guestRepository.findById(id).
+                map(guestServiceConverter::convertEntityToVO).orElseThrow(() ->
+                new GuestNotFoundException (DemoAppConstants.GUEST_NOT_FOUND_ERROR_MESSAGE));
     }
 
     @Override
-    public Guest registerNewGuest(Guest newGuest) throws GuestAlreadyRegisteredException {
+    public GuestVO findGuestByLastName(String lastName) throws GuestNotFoundException {
 
-        Guest existingGuest = guestRepository.findBylastName(newGuest.getLastName());
+       return  Optional.of(guestRepository.findBylastName(lastName)).
+                map(guestServiceConverter::convertEntityToVO).
+                orElseThrow(() -> new GuestNotFoundException (DemoAppConstants.GUEST_NOT_FOUND_ERROR_MESSAGE));
+    }
 
-        if(!newGuest.equals(existingGuest)){
-            guestRepository.save(newGuest);
+    @Override
+    public GuestVO registerNewGuest(Guest newGuest) throws GuestAlreadyRegisteredException {
+
+        Optional<Guest> optionalGuest = Optional.of(guestRepository.findBylastName(newGuest.getLastName()));
+
+        if(!optionalGuest.isPresent()){
+           return Optional.of(guestRepository.save(newGuest)).
+                   map(guestServiceConverter::convertEntityToVO).get();
         }else{
             throw new GuestAlreadyRegisteredException (DemoAppConstants.GUEST_ALREADY_REGISTERED_ERROR_MESSAGE);
         }
-        return newGuest;
     }
 
 
     @Override
-    public Guest checkIn(String guestCode, Room room) throws RoomFullException, RoomNotFoundException {
-
-        Guest checkedInGuest = guestRepository.findByguestCode(guestCode);
-        checkedInGuest.getRooms().add(room);
-        guestRepository.save(checkedInGuest);
-
-        return checkedInGuest;
+    public void deleteGuest(String guestCode) throws GuestNotFoundException {
+        Optional.of(guestRepository.findByguestCode(guestCode)).ifPresent(item -> guestRepository.delete(item));
     }
 
     @Override
-    public Guest checkOut(String guestId, Room room) throws RoomFullException, RoomNotFoundException {
-        return null;
+    public List<GuestVO> findAll() {
+        return guestRepository.findAll().stream().
+                map(guestServiceConverter::convertEntityToVO).
+                collect(Collectors.toList());
     }
+
 }

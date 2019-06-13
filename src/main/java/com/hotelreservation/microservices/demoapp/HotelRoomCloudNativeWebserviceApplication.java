@@ -14,7 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableAutoConfiguration(exclude = RepositoryRestMvcAutoConfiguration.class)
 @EntityScan("com.hotelreservation.microservices.entity")
 @EnableJpaRepositories("com.hotelreservation.microservices.repository")
-@ComponentScan({ "com.hotelreservation.microservices.converter","com.hotelreservation.microservices.controller", "com.hotelreservation.microservices.service", "com.hotelreservation.microservices.service.impl"})
+@ComponentScan({ "com.hotelreservation.microservices.common","com.hotelreservation.microservices.converter","com.hotelreservation.microservices.controller", "com.hotelreservation.microservices.service", "com.hotelreservation.microservices.service.impl"})
 @EnableCaching
 @EnableSwagger2
 public class HotelRoomCloudNativeWebserviceApplication {
