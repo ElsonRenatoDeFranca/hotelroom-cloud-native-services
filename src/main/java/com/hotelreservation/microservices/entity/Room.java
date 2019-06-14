@@ -8,12 +8,9 @@ import lombok.Setter;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -46,11 +43,11 @@ public class Room {
     @Column(name = "BED_INFO", length = 2)
     private String bedInfo;
 
-    @JsonIgnore
+    /*@JsonIgnore
     @ManyToMany(mappedBy = "rooms")
     private List<Guest> guests = new ArrayList();
-
+   */
     @ManyToOne(cascade = CascadeType.ALL)
-    private Reservation booking;
+    private Booking booking;
 
 }

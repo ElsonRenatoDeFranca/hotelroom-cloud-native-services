@@ -1,13 +1,13 @@
 com\hotelreservation\microservices\converter\RoomServiceConverterImpl.class
 com\hotelreservation\microservices\controller\GuestController.class
 com\hotelreservation\microservices\repository\RoomRepository.class
-com\hotelreservation\microservices\entity\Reservation.class
+com\hotelreservation\microservices\common\PaymentType.class
 com\hotelreservation\microservices\repository\GuestRepository.class
 com\hotelreservation\microservices\demoapp\HotelRoomCloudNativeWebserviceApplication.class
 com\hotelreservation\microservices\service\impl\GuestServiceImpl.class
 com\hotelreservation\microservices\converter\GuestServiceConverterImpl.class
 com\hotelreservation\microservices\service\IGuestService.class
-com\hotelreservation\microservices\common\ReservationStatus.class
+com\hotelreservation\microservices\entity\Booking.class
 com\hotelreservation\microservices\vo\GuestVO.class
 com\hotelreservation\microservices\config\SwaggerConfig.class
 com\hotelreservation\microservices\vo\RoomVO.class
@@ -15,6 +15,7 @@ com\hotelreservation\microservices\exceptions\GuestAlreadyRegisteredException.cl
 com\hotelreservation\microservices\exceptions\RoomFullException.class
 com\hotelreservation\microservices\service\impl\RoomServiceImpl.class
 com\hotelreservation\microservices\constants\DemoAppConstants.class
+com\hotelreservation\microservices\common\BookingStatus.class
 com\hotelreservation\microservices\controller\RoomController.class
 com\hotelreservation\microservices\service\IRoomService.class
 com\hotelreservation\microservices\converter\IRoomServiceConverter.class
@@ -22,4 +23,5 @@ com\hotelreservation\microservices\entity\Guest.class
 com\hotelreservation\microservices\exceptions\GuestNotFoundException.class
 com\hotelreservation\microservices\exceptions\RoomNotFoundException.class
 com\hotelreservation\microservices\converter\IGuestServiceConverter.class
+com\hotelreservation\microservices\entity\Payment.class
 com\hotelreservation\microservices\entity\Room.class

@@ -30,7 +30,7 @@ public class GuestServiceImpl implements IGuestService {
 
     @Override
     public GuestVO findGuestById(Long id) throws GuestNotFoundException {
-        return guestRepository.findById(id).
+        return Optional.of(guestRepository.findByguestId(id)).
                 map(guestServiceConverter::convertEntityToVO).orElseThrow(() ->
                 new GuestNotFoundException (DemoAppConstants.GUEST_NOT_FOUND_ERROR_MESSAGE));
     }
@@ -46,20 +46,21 @@ public class GuestServiceImpl implements IGuestService {
     @Override
     public GuestVO registerNewGuest(Guest newGuest) throws GuestAlreadyRegisteredException {
 
-        Optional<Guest> optionalGuest = Optional.of(guestRepository.findBylastName(newGuest.getLastName()));
+        Optional<Guest> optionalGuest = Optional.ofNullable(guestRepository.findByguestId(newGuest.getGuestId()));
 
         if(!optionalGuest.isPresent()){
-           return Optional.of(guestRepository.save(newGuest)).
-                   map(guestServiceConverter::convertEntityToVO).get();
+            return Optional.of(guestRepository.save(newGuest)).
+                    map(guestServiceConverter::convertEntityToVO).orElseThrow(() ->new GuestAlreadyRegisteredException (DemoAppConstants.GUEST_NOT_FOUND_ERROR_MESSAGE));
         }else{
             throw new GuestAlreadyRegisteredException (DemoAppConstants.GUEST_ALREADY_REGISTERED_ERROR_MESSAGE);
         }
+
     }
 
 
     @Override
-    public void deleteGuest(String guestCode) throws GuestNotFoundException {
-        Optional.of(guestRepository.findByguestCode(guestCode)).ifPresent(item -> guestRepository.delete(item));
+    public void deleteGuest(Long guestId) throws GuestNotFoundException {
+        Optional.of(guestRepository.findByguestId(guestId)).ifPresent(item -> guestRepository.delete(item));
     }
 
     @Override

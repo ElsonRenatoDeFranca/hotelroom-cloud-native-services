@@ -29,7 +29,7 @@ public class GuestController {
     @Autowired
     private IGuestService guestService;
 
-    @RequestMapping(method=RequestMethod.POST, value="/guests")
+    @RequestMapping(method=RequestMethod.POST, value="api/guests")
     @ApiOperation(value="Register a new guest", notes="Register a new guest in the Hotel", nickname="saveGuest")
     public ResponseEntity<GuestVO> registerNewGuest(@RequestBody Guest guest) {
         GuestVO registeredGuest = null;
@@ -42,19 +42,19 @@ public class GuestController {
     }
 
 
-    @RequestMapping(method=RequestMethod.GET,value="/guests/{guestCode}")
-    @ApiOperation(value="Get guest by code", notes="Gets an specific guest by code", nickname="getGuestByCode")
-    public ResponseEntity<GuestVO> findGuestById(@PathVariable(name="guestCode") String guestCode){
+    @RequestMapping(method=RequestMethod.GET,value="api/guests/{guestId}")
+    @ApiOperation(value="Get guest by id", notes="Gets an specific guest by code", nickname="getGuestById")
+    public ResponseEntity<GuestVO> findGuestById(@PathVariable(name="guestId") Long guestId){
         GuestVO guestVO = null;
         try {
-            guestVO = guestService.findGuestById(Long.parseLong(guestCode));
+            guestVO = guestService.findGuestById(guestId);
             return new ResponseEntity<>(guestVO, HttpStatus.OK);
         } catch (GuestNotFoundException e) {
             return new ResponseEntity<>(guestVO, HttpStatus.BAD_REQUEST);
         }
     }
 
-    @RequestMapping(method=RequestMethod.GET,value="/guests/{lastName}")
+    @RequestMapping(method=RequestMethod.GET,value="guests/{lastName}")
     @ApiOperation(value="Get guest by last name", notes="Gets an specific guest by last name", nickname="getGuestByLastName")
     public ResponseEntity<GuestVO> findGuestByLastName(@PathVariable(name="lastName") String lastName) {
         GuestVO guestVO = null;
@@ -67,9 +67,9 @@ public class GuestController {
 
     }
 
-    @RequestMapping(method=RequestMethod.GET,value="/guests")
+    @RequestMapping(method=RequestMethod.GET,value="api/guests")
     @ApiOperation(value="Gets all guests registered", notes="Gets all guests registered", nickname="getAllGuests")
-    public ResponseEntity<List<GuestVO>> findAll(@PathVariable(name="lastName") String lastName) {
+    public ResponseEntity<List<GuestVO>> findAll() {
         return new ResponseEntity<>(guestService.findAll(), HttpStatus.OK);
     }
 

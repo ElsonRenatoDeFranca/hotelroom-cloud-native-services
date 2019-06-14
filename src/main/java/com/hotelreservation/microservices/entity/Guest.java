@@ -31,14 +31,14 @@ import java.util.List;
 public class Guest {
 
     @Id
-    @Column(name="GUEST_ID")
+    @Column(name="ID")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     private Long id;
 
-    @Column(name="GUEST_CODE", length = 20)
-    private String guestCode;
+    @Column(name="GUEST_ID", length = 20)
+    private Long guestId;
 
     @Column(name="FIRST_NAME", length = 64)
     private String firstName;
@@ -61,7 +61,7 @@ public class Guest {
     @Column(name="PHONE_NUMBER", length = 24)
     private String phoneNumber;
 
-    @ManyToMany(fetch = FetchType.LAZY,
+    /*@ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
@@ -71,6 +71,7 @@ public class Guest {
             joinColumns = { @JoinColumn(name = "GUEST_ID") },
             inverseJoinColumns = { @JoinColumn(name = "ROOM_ID") })
     private List<Room> rooms;
+    */
 
 
 

@@ -17,8 +17,8 @@ public interface GuestRepository extends JpaRepository<Guest, Long> {
 
     /**
      *
-     * @param guestCode
+     * @param guestId
      * @return
      */
-    Guest findByguestCode(String guestCode);
+    Guest findByguestId(Long guestId);
 }

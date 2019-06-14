@@ -42,11 +42,11 @@ public interface IGuestService {
 
     /**
      *
-     * @param guestCode
+     * @param guestId
      * @return
      * @throws GuestNotFoundException
      */
-    void deleteGuest(String guestCode) throws GuestNotFoundException;
+    void deleteGuest(Long guestId) throws GuestNotFoundException;
 
     /**
      *

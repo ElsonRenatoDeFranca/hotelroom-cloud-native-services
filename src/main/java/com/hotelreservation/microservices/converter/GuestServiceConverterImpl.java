@@ -17,7 +17,7 @@ public class GuestServiceConverterImpl implements IGuestServiceConverter {
         guestVO.setState(guest.getState());
         guestVO.setPhoneNumber(guest.getPhoneNumber());
         guestVO.setLastName(guest.getLastName());
-        guestVO.setGuestCode(guest.getGuestCode());
+        guestVO.setGuestId(guest.getGuestId());
         guestVO.setFirstName(guest.getFirstName());
         guestVO.setEmailAddress(guest.getEmailAddress());
         guestVO.setCountry(guest.getCountry());
@@ -33,7 +33,7 @@ public class GuestServiceConverterImpl implements IGuestServiceConverter {
         guest.setState(guestVO.getState());
         guest.setPhoneNumber(guestVO.getPhoneNumber());
         guest.setLastName(guestVO.getLastName());
-        guest.setGuestCode(guestVO.getGuestCode());
+        guest.setGuestId(guestVO.getGuestId());
         guest.setFirstName(guestVO.getFirstName());
         guest.setEmailAddress(guestVO.getEmailAddress());
         guest.setCountry(guestVO.getCountry());
